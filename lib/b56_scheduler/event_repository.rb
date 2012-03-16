@@ -9,12 +9,12 @@ module B56Scheduler
     end
 
     def search(query)
-      with_events = query.fetch(:with, [])
+      with_events = query.included_events
       participants_for_events = with_events.map{ |with_event|
         @events[with_event]
       }
 
-      without_events = query.fetch(:without, [])
+      without_events = query.excluded_events
       participants_excluded = without_events.map{ |without_event|
         @events[without_event]
       }

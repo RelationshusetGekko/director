@@ -14,5 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "b56_scheduler"
   gem.require_paths = ["lib"]
   gem.version       = B56Scheduler::VERSION
-  gem.add_development_dependency('rspec')
+  gem.add_development_dependency 'rspec', "~> 2.8.0"
+  gem.add_development_dependency 'guard-rspec'
+  gem.add_development_dependency 'growl'
 end

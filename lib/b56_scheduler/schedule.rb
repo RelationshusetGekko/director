@@ -15,7 +15,7 @@ module B56Scheduler
     end
 
     def notify(participant_id, event)
-      @event_repository.notify(participant_id, event.to_s)
+      @event_repository.notify(participant_id, event)
     end
 
     def execute

@@ -5,30 +5,34 @@ module B56Scheduler
     end
 
     def includes_event(event, opts = {})
-      @criteria << { :includes => event }.merge(opts)
+      @criteria << { :name => event, :includes => true }.merge(opts)
     end
 
     def excludes_event(event, opts = {})
-      @criteria << { :excludes  => event }.merge(opts)
+      @criteria << { :name => event, :excludes => true }.merge(opts)
     end
 
     def match?(events)
-      @criteria.all?{|criterion|
-        result = true
-        if(criterion[:includes])
-          event = events.detect{|event| event.name == criterion[:includes]}
-          if(criterion[:before])
-            result = !event.nil? && event.created_at < criterion[:before]
-          else
-            result = !event.nil?
-          end
+      @criteria.all?{|criterion| passes?(events, criterion) }
+    end
+
+    private
+
+    def passes?(events, criterion)
+      result = !find_event(events, criterion).nil? if(criterion[:includes])
+      result = find_event(events, criterion).nil? if(criterion[:excludes])
+      result
+    end
+
+    def find_event(events, criterion)
+      events.detect do |event|
+        if(criterion[:before])
+          event.name == criterion[:name] &&
+            event.created_at < criterion[:before]
+        else
+          event.name == criterion[:name]
         end
-        if(criterion[:excludes])
-          event = events.detect{|event| event.name == criterion[:excludes]}
-          result = event.nil?
-        end
-        result
-      }
+      end
     end
   end
 end

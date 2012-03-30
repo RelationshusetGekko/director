@@ -9,8 +9,9 @@ module B56Scheduler
     end
 
     def search(query)
+      resolver = B56Scheduler::QueryResolver.new(query.criteria)
       @participants.select do |participant, events|
-        query.match?(events)
+        resolver.match?(events)
       end.map{|array| array[0]}
     end
   end

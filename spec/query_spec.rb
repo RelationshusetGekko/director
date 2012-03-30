@@ -1,60 +1,13 @@
 require 'b56_scheduler/query'
 
 describe B56Scheduler::Query do
-  let(:query) { B56Scheduler::Query.new }
-  let(:time) { Time.now }
-  let(:event1) { stub(:name => 'event1', :created_at => time) }
-  let(:event2) { stub(:name => 'event2', :created_at => time) }
-  let(:event3) { stub(:name => 'event3', :created_at => time) }
-
-  it "finds an included event" do
-    query.includes_event('event1')
-    query.should be_match([event1])
+  subject { B56Scheduler::Query.new }
+  before(:each) do
+    subject.includes_event('event1')
+    subject.includes_event('event2')
+    subject.excludes_event('event3')
   end
-
-  it "skips an excluded event" do
-    query.excludes_event('event1')
-    query.should_not be_match([event1])
-  end
-
-  context "a query with two includes" do
-    before(:each) do
-      query.includes_event('event1')
-      query.includes_event('event2')
-    end
-    it "should match a set of events" do
-      query.should be_match([event1, event3, event2])
-    end
-    it "does not match when an event is missing" do
-      query.should_not be_match([event1, event3])
-    end
-  end
-  context "a query with an includes with time before now" do
-    before(:each) do
-      query.includes_event('event1', :before => time - 1)
-    end
-    it "does not match when an event is missing" do
-      query.should_not be_match([event1])
-    end
-  end
-  context "a query with an includes with time after now" do
-    before(:each) do
-      query.includes_event('event1', :before => time + 1)
-    end
-    it "does not match when an event is missing" do
-      query.should be_match([event1])
-    end
-  end
-  context "a query with an include and an exclude" do
-    before(:each) do
-      query.includes_event('event1')
-      query.excludes_event('event2')
-    end
-    it "matches a set of events" do
-      query.should be_match([event1, event3])
-    end
-    it "does not match a set of events" do
-      query.should_not be_match([event1, event2, event3])
-    end
-  end
+  its(:criteria) { should include({:name => 'event1', :includes => true}) }
+  its(:criteria) { should include({:name => 'event2', :includes => true}) }
+  its(:criteria) { should include({:name => 'event3', :excludes => true}) }
 end

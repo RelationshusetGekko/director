@@ -1,4 +1,5 @@
 require 'b56_scheduler/query'
+require 'b56_scheduler/query_resolver'
 require 'b56_scheduler/event_repository'
 
 describe B56Scheduler::EventRepository do

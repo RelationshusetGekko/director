@@ -8,7 +8,7 @@ describe B56Scheduler::Schedule do
     let(:handler) { stub }
 
     before(:each) do
-      subject.add_trigger(:now, :on => 'some_event', :action => :some_action)
+      subject.add_trigger(:now, :event => 'some_event', :action => :some_action)
       subject.add_handler(:some_action, handler)
     end
 
@@ -34,11 +34,11 @@ describe B56Scheduler::Schedule do
 
     before(:each) do
       subject.add_trigger(:now,
-                          :on => 'some_event',
+                          :event => 'some_event',
                           :action => :some_action)
       subject.add_handler(:some_action, handler1)
       subject.add_trigger(:again,
-                          :on => 'some_other_event',
+                          :event => 'some_other_event',
                           :action => :some_other_action)
       subject.add_handler(:some_other_action, handler2)
     end
@@ -73,7 +73,7 @@ describe B56Scheduler::Schedule do
 
     before(:each) do
       subject.add_trigger(:now,
-                          :on => 'some_event',
+                          :event => 'some_event',
                           :action => :some_action,
                           :offset => 60)
       subject.add_handler(:some_action, handler1)

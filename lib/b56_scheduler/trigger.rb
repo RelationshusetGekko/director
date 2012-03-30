@@ -2,7 +2,7 @@ module B56Scheduler
   class Trigger
     attr_reader :action
     def initialize(name, opts)
-      @name, @on, @action = name, opts[:on].to_s, opts[:action].to_s
+      @name, @event, @action = name, opts[:event].to_s, opts[:action].to_s
       @offset = opts[:offset]
     end
 
@@ -19,7 +19,7 @@ module B56Scheduler
       if @offset
         opts = { :before => Time.now - @offset }
       end
-      query.includes_event(@on, opts)
+      query.includes_event(@event, opts)
       query.excludes_event(triggered_event_name)
       query
     end

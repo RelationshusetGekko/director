@@ -29,7 +29,7 @@ the section on Event Repository for details.
 Then we need to add a trigger to the schedule:
 
     schedule.add_trigger(:invitation,
-                         :on => :participant_join,
+                         :event => :participant_join,
                          :action => :send_invite)
 
 Then we need to tell the schedule which handlers are to be used for handling
@@ -67,7 +67,7 @@ Sometimes you want to schedule a trigger sometime after an event. This can be
 done with:
 
     schedule.add_trigger(:reminder,
-                         :on => 'participant_join'
+                         :event => 'participant_join'
                          :offset => 3600,
                          :action => :send_reminder)
 
@@ -109,7 +109,7 @@ told to:
 
     triggers:
       invitation:
-        on: participant_join
+        event: participant_join
         action: send_invite
 
 This schedule can be loaded with:

@@ -1,0 +1,13 @@
+triggers:
+  invitation:
+    event: participant_join
+    action: send_invite
+    offset: 1 hour
+  reminder:
+    event: participant_join
+    action: send_invite
+    offset: 2 days
+  final:
+    event: participant_join
+    action: send_invite
+    offset: 2 months

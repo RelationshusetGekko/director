@@ -1,7 +1,7 @@
 module B56Scheduler
   class Schedule
-    def initialize
-      @event_repository = EventRepository.new
+    def initialize(event_repository)
+      @event_repository = event_repository
       @triggers = []
       @handlers = {}
     end

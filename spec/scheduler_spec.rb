@@ -1,6 +1,7 @@
 require 'b56_scheduler'
 
 describe B56Scheduler::Schedule do
+  subject { B56Scheduler::Schedule.new(B56Scheduler::EventRepository.new) }
   let(:some_event) { stub(:name => 'some_event') }
   let(:some_other_event) { stub(:name => 'some_other_event') }
   context 'with one trigger' do

@@ -13,18 +13,18 @@ module B56Scheduler
     end
 
     def match?(events)
-      @criteria.all?{|query|
+      @criteria.all?{|criterion|
         result = true
-        if(query[:includes])
-          event = events.detect{|event| event.name == query[:includes]}
-          if(query[:before])
-            result = !event.nil? && event.created_at < query[:before]
+        if(criterion[:includes])
+          event = events.detect{|event| event.name == criterion[:includes]}
+          if(criterion[:before])
+            result = !event.nil? && event.created_at < criterion[:before]
           else
             result = !event.nil?
           end
         end
-        if(query[:excludes])
-          event = events.detect{|event| event.name == query[:excludes]}
+        if(criterion[:excludes])
+          event = events.detect{|event| event.name == criterion[:excludes]}
           result = event.nil?
         end
         result

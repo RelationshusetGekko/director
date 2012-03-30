@@ -8,7 +8,7 @@ describe B56Scheduler::Schedule do
     let(:handler) { stub }
 
     before(:each) do
-      subject.add_trigger(:now, :event => 'some_event', :action => :some_action)
+      subject.add_trigger(:now, 'event' => 'some_event', :action => :some_action)
       subject.add_handler(:some_action, handler)
     end
 

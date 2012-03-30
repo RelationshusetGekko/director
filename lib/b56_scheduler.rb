@@ -1,3 +1,4 @@
+require "b56_scheduler/config_loader"
 require "b56_scheduler/event"
 require "b56_scheduler/event_repository"
 require "b56_scheduler/schedule"

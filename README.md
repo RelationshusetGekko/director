@@ -21,7 +21,10 @@ Or install it yourself as:
 The first thing we need to do to start using the scheduler is to get our hands
 on a schedule object:
 
-    schedule = B56Scheduler::Schedule.new
+    schedule = B56Scheduler::Schedule.new(event_repository)
+
+Notice that you need to pass an `event_repository` object to the Schedule. See
+the section on Event Repository for details.
 
 Then we need to add a trigger to the schedule:
 
@@ -66,6 +69,33 @@ done with:
     schedule.add_trigger(:reminder,
                          :on => 'participant_join + 5 days',
                          :action => :send_reminder)
+
+## Event Repository
+
+To use the scheduler you need to provide an event repository object. This
+object needs to respond to `notify(participant_id, event_name)` and
+`search(criteria)`.
+
+`participant_id` will most likely be an integer and `event_name` must be a
+string.
+
+For the search the criteria is an array of hashes that look like:
+
+    { :name => 'event_name', :includes => true }
+
+This means that the event `event_name` must have happened to the participant.
+The inverse is also possible:
+
+    { :name => 'event_name', :excludes => true }
+
+Meaning that the event `event_name` must not have happened to the participant.
+The search method must return an array of participant ids that match the
+criteria.
+
+Optionally the hash might include a `before` key if the event must have
+happened before a given time.
+
+    { :name => 'event_name', :includes => true, :before => [time object] }
 
 ## Config files
 

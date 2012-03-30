@@ -1,3 +1,5 @@
+require 'yaml'
+
 module B56Scheduler
   class ConfigLoader
     def self.load_schedule(schedule, filename)

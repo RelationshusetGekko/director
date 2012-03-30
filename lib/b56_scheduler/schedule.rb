@@ -14,7 +14,9 @@ module B56Scheduler
       @handlers[action.to_s] = handler
     end
 
-    def notify(participant_id, event)
+    def notify(participant_id, event_name)
+      event = Event.new
+      event.name = event_name
       @event_repository.notify(participant_id, event)
     end
 

@@ -66,4 +66,23 @@ describe B56Scheduler::Schedule do
       subject.execute
     end
   end
+
+  context 'with a timed trigger' do
+    let(:handler1) { stub }
+    let(:handler2) { stub }
+
+    before(:each) do
+      subject.add_trigger(:now,
+                          :on => 'some_event',
+                          :action => :some_action,
+                          :offset => 60)
+      subject.add_handler(:some_action, handler1)
+    end
+
+    it "can execute an action for two participants" do
+      handler1.should_not_receive(:call).with(42)
+      subject.notify(42, some_event)
+      subject.execute
+    end
+  end
 end

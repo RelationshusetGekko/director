@@ -15,7 +15,11 @@ module B56Scheduler
 
     def query
       query = Query.new
-      query.includes_event(@on)
+      opts = {}
+      if @offset
+        opts = { :before => Time.now - @offset }
+      end
+      query.includes_event(@on, opts)
       query.excludes_event(triggered_event_name)
       query
     end

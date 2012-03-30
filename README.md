@@ -67,8 +67,12 @@ Sometimes you want to schedule a trigger sometime after an event. This can be
 done with:
 
     schedule.add_trigger(:reminder,
-                         :on => 'participant_join + 5 days',
+                         :on => 'participant_join'
+                         :offset => 3600,
                          :action => :send_reminder)
+
+Where the offset is some number of seconds that must pass after the event
+before the trigger is run.
 
 ## Event Repository
 

@@ -8,7 +8,7 @@ module B56Scheduler
     def run(event_repository, handler)
       event_repository.search(query).each do |participant_id|
         handler.call(participant_id)
-        event_repository.notify(participant_id, triggered_event)
+        event_repository.notify(participant_id, triggered_event_name)
       end
     end
 
@@ -17,12 +17,6 @@ module B56Scheduler
       query.includes_event(@on)
       query.excludes_event(triggered_event_name)
       query
-    end
-
-    def triggered_event
-      event = Event.new
-      event.name = triggered_event_name
-      event
     end
 
     def triggered_event_name

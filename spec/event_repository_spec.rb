@@ -6,9 +6,9 @@ describe B56Scheduler::EventRepository do
   let(:repos) { B56Scheduler::EventRepository.new }
   let(:participant_1) { stub('Participant 1') }
   let(:participant_2) { stub('Participant 2') }
-  let(:event1) { stub('New event', :name => 'event1') }
-  let(:event2) { stub('Handled event', :name => 'event2') }
-  let(:event_yesterday) { stub('Handled event', :name => 'event_yesterday', :created_at => yesterday) }
+  let(:event1) { 'event1' }
+  let(:event2) { 'event2' }
+  let(:event_yesterday) { 'event_yesterday' }
   let(:now) { Time.now }
   let(:yesterday) { now - (24 * 60 * 60) }
   let(:two_days_ago) { now - (2 * 24 * 60 * 60) }
@@ -22,14 +22,14 @@ describe B56Scheduler::EventRepository do
 
     it "finds both participants when asked for participants with the event" do
       query = B56Scheduler::Query.new
-      query.includes_event(event1.name)
+      query.includes_event(event1)
       repos.search(query).should have(2).items
     end
 
     it "finds only the participant without event2" do
       query = B56Scheduler::Query.new
-      query.includes_event(event1.name)
-      query.excludes_event(event2.name)
+      query.includes_event(event1)
+      query.excludes_event(event2)
       repos.search(query).should == [participant_2]
     end
   end
@@ -41,23 +41,23 @@ describe B56Scheduler::EventRepository do
     end
     it "finds only the participant with the event" do
       query = B56Scheduler::Query.new
-      query.includes_event(event1.name)
+      query.includes_event(event1)
       repos.search(query).should == [participant_2]
     end
   end
 
   context "a participant with an event yesterday" do
     before(:each) do
-      repos.notify(participant_1, event_yesterday)
+      repos.notify(participant_1, event_yesterday, yesterday)
     end
     it "finds the events from yesterday" do
       query = B56Scheduler::Query.new
-      query.includes_event(event_yesterday.name, :before => now)
+      query.includes_event(event_yesterday, :before => now)
       repos.search(query).should == [participant_1]
     end
     it "skips the event when asked for 2 days ago" do
       query = B56Scheduler::Query.new
-      query.includes_event(event_yesterday.name, :before => two_days_ago)
+      query.includes_event(event_yesterday, :before => two_days_ago)
       repos.search(query).should be_empty
     end
   end

@@ -4,7 +4,10 @@ module B56Scheduler
       @participants = Hash.new{|hash, key| hash[key] = []}
     end
 
-    def notify(participant_id, event)
+    def notify(participant_id, event_name, created_at = Time.now)
+      event = Event.new
+      event.name = event_name
+      event.created_at = created_at
       @participants[participant_id] << event
     end
 

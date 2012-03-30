@@ -23,14 +23,14 @@ describe B56Scheduler::EventRepository do
     it "finds both participants when asked for participants with the event" do
       query = B56Scheduler::Query.new
       query.includes_event(event1)
-      repos.search(query).should have(2).items
+      repos.search(query.criteria).should have(2).items
     end
 
     it "finds only the participant without event2" do
       query = B56Scheduler::Query.new
       query.includes_event(event1)
       query.excludes_event(event2)
-      repos.search(query).should == [participant_2]
+      repos.search(query.criteria).should == [participant_2]
     end
   end
 
@@ -42,7 +42,7 @@ describe B56Scheduler::EventRepository do
     it "finds only the participant with the event" do
       query = B56Scheduler::Query.new
       query.includes_event(event1)
-      repos.search(query).should == [participant_2]
+      repos.search(query.criteria).should == [participant_2]
     end
   end
 
@@ -53,12 +53,12 @@ describe B56Scheduler::EventRepository do
     it "finds the events from yesterday" do
       query = B56Scheduler::Query.new
       query.includes_event(event_yesterday, :before => now)
-      repos.search(query).should == [participant_1]
+      repos.search(query.criteria).should == [participant_1]
     end
     it "skips the event when asked for 2 days ago" do
       query = B56Scheduler::Query.new
       query.includes_event(event_yesterday, :before => two_days_ago)
-      repos.search(query).should be_empty
+      repos.search(query.criteria).should be_empty
     end
   end
 end

@@ -11,8 +11,8 @@ module B56Scheduler
       @participants[participant_id] << event
     end
 
-    def search(query)
-      resolver = B56Scheduler::QueryResolver.new(query.criteria)
+    def search(criteria)
+      resolver = B56Scheduler::QueryResolver.new(criteria)
       @participants.select do |participant, events|
         resolver.match?(events)
       end.map{|array| array[0]}

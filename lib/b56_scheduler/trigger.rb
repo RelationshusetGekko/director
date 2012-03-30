@@ -6,7 +6,7 @@ module B56Scheduler
     end
 
     def run(event_repository, handler)
-      event_repository.search(query).each do |participant_id|
+      event_repository.search(query.criteria).each do |participant_id|
         handler.call(participant_id)
         event_repository.notify(participant_id, triggered_event_name)
       end

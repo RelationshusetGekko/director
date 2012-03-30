@@ -1,8 +1,9 @@
 module B56Scheduler
   class Trigger
     attr_reader :action
-    def initialize(name, on, action)
-      @name, @on, @action = name, on, action
+    def initialize(name, opts)
+      @name, @on, @action = name, opts[:on].to_s, opts[:action].to_s
+      @offset = opts[:offset]
     end
 
     def run(event_repository, handler)

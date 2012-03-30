@@ -6,8 +6,8 @@ module B56Scheduler
       @handlers = {}
     end
 
-    def add_trigger(name, on, action)
-      @triggers << Trigger.new(name, on.to_s, action.to_s)
+    def add_trigger(name, opts)
+      @triggers << Trigger.new(name, opts)
     end
 
     def add_handler(action, handler)

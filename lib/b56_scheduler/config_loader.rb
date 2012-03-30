@@ -1,6 +1,7 @@
 module B56Scheduler
   class ConfigLoader
-    def self.load_config(schedule, filename)
+    def self.load_schedule(schedule, filename)
+      new(schedule).load_config(YAML::load_file(filename))
     end
 
     def initialize(schedule)

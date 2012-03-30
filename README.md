@@ -111,10 +111,11 @@ told to:
       invitation:
         event: participant_join
         action: send_invite
+        offset: 1 day
 
 This schedule can be loaded with:
 
-    schedule = B56Scheduler::Config.load_schedule(YAML::load_file('path/to/file'))
+    schedule = B56Scheduler::ConfigLoader.load_schedule(YAML::load_file('path/to/file'))
 
 ## Contributing
 

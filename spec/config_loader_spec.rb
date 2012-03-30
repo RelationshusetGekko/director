@@ -4,7 +4,6 @@ describe B56Scheduler::ConfigLoader do
   let(:schedule) { stub('Schedule') }
 
   it "loads a simple config" do
-    config = YAML::load_file('spec/fixtures/simple_config.yaml')
     schedule.should_receive(:add_trigger).with(
       'invitation',
       {
@@ -12,11 +11,10 @@ describe B56Scheduler::ConfigLoader do
         'action' => 'send_invite'
       }
     )
-    B56Scheduler::ConfigLoader.new(schedule).load_config(config)
+    B56Scheduler::ConfigLoader.load_schedule(schedule, 'spec/fixtures/simple_config.yaml')
   end
 
   context "with a timed config" do
-    let(:config) { YAML::load_file('spec/fixtures/timed_config.yaml') }
     before(:each) { schedule.stub(:add_trigger) }
 
     it "loads the invitation" do
@@ -28,7 +26,7 @@ describe B56Scheduler::ConfigLoader do
           'offset' => 3600
         }
       )
-      B56Scheduler::ConfigLoader.new(schedule).load_config(config)
+      B56Scheduler::ConfigLoader.load_schedule(schedule, 'spec/fixtures/timed_config.yaml')
     end
 
     it "loads the reminder" do
@@ -40,7 +38,7 @@ describe B56Scheduler::ConfigLoader do
           'offset' => 2 * 24 * 60 * 60
         }
       )
-      B56Scheduler::ConfigLoader.new(schedule).load_config(config)
+      B56Scheduler::ConfigLoader.load_schedule(schedule, 'spec/fixtures/timed_config.yaml')
     end
 
     it "loads the final" do
@@ -52,7 +50,7 @@ describe B56Scheduler::ConfigLoader do
           'offset' => 2 * 30 * 24 * 60 * 60
         }
       )
-      B56Scheduler::ConfigLoader.new(schedule).load_config(config)
+      B56Scheduler::ConfigLoader.load_schedule(schedule, 'spec/fixtures/timed_config.yaml')
     end
   end
 

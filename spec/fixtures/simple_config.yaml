@@ -1,0 +1,4 @@
+triggers:
+  invitation:
+    event: participant_join
+    action: send_invite

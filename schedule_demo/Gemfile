@@ -22,4 +22,4 @@ end
 
 gem 'jquery-rails'
 
-gem 'b56_scheduler', :path => '../'
+gem 'director', :path => '../'

@@ -1,3 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'b56_scheduler'

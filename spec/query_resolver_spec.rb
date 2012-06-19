@@ -1,9 +1,9 @@
-require 'b56_scheduler/query'
-require 'b56_scheduler/query_resolver'
+require 'director/query'
+require 'director/query_resolver'
 
-describe B56Scheduler::QueryResolver do
-  let(:query) { B56Scheduler::Query.new }
-  let(:query_resolver) { B56Scheduler::QueryResolver.new(query.criteria) }
+describe Director::QueryResolver do
+  let(:query) { Director::Query.new }
+  let(:query_resolver) { Director::QueryResolver.new(query.criteria) }
   let(:time) { Time.now }
   let(:event1) { stub(:name => 'event1', :created_at => time) }
   let(:event2) { stub(:name => 'event2', :created_at => time) }

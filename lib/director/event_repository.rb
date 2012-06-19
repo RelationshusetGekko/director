@@ -1,4 +1,4 @@
-module B56Scheduler
+module Director
   class EventRepository
     def initialize
       @participants = Hash.new{|hash, key| hash[key] = []}
@@ -12,7 +12,7 @@ module B56Scheduler
     end
 
     def search(criteria)
-      resolver = B56Scheduler::QueryResolver.new(criteria)
+      resolver = Director::QueryResolver.new(criteria)
       @participants.select do |participant, events|
         resolver.match?(events)
       end.map{|array| array[0]}

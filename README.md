@@ -1,4 +1,4 @@
-# B56Scheduler
+# Director
 
 TODO: Write a gem description
 
@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'b56_scheduler'
+    gem 'director'
 
 And then execute:
 
@@ -14,14 +14,14 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install b56_scheduler
+    $ gem install director
 
 ## Usage
 
 The first thing we need to do to start using the scheduler is to get our hands
 on a schedule object:
 
-    schedule = B56Scheduler::Schedule.new(event_repository)
+    schedule = Director::Schedule.new(event_repository)
 
 Notice that you need to pass an `event_repository` object to the Schedule. See
 the section on Event Repository for details.
@@ -115,7 +115,7 @@ told to:
 
 This schedule can be loaded with:
 
-    schedule = B56Scheduler::ConfigLoader.load_schedule(YAML::load_file('path/to/file'))
+    schedule = Director::ConfigLoader.load_schedule(YAML::load_file('path/to/file'))
 
 ## Contributing
 

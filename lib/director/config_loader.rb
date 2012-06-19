@@ -1,6 +1,6 @@
 require 'yaml'
 
-module B56Scheduler
+module Director
   class ConfigLoader
     def self.load_schedule(schedule, filename)
       new(schedule).load_config(YAML::load_file(filename))

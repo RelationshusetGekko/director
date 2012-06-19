@@ -1,9 +1,9 @@
-require 'b56_scheduler/query'
-require 'b56_scheduler/query_resolver'
-require 'b56_scheduler/event_repository'
+require 'director/query'
+require 'director/query_resolver'
+require 'director/event_repository'
 
-describe B56Scheduler::EventRepository do
-  let(:repos) { B56Scheduler::EventRepository.new }
+describe Director::EventRepository do
+  let(:repos) { Director::EventRepository.new }
   let(:participant_1) { stub('Participant 1') }
   let(:participant_2) { stub('Participant 2') }
   let(:event1) { 'event1' }
@@ -21,13 +21,13 @@ describe B56Scheduler::EventRepository do
     end
 
     it "finds both participants when asked for participants with the event" do
-      query = B56Scheduler::Query.new
+      query = Director::Query.new
       query.includes_event(event1)
       repos.search(query.criteria).should have(2).items
     end
 
     it "finds only the participant without event2" do
-      query = B56Scheduler::Query.new
+      query = Director::Query.new
       query.includes_event(event1)
       query.excludes_event(event2)
       repos.search(query.criteria).should == [participant_2]
@@ -40,7 +40,7 @@ describe B56Scheduler::EventRepository do
       repos.notify(participant_2, event1)
     end
     it "finds only the participant with the event" do
-      query = B56Scheduler::Query.new
+      query = Director::Query.new
       query.includes_event(event1)
       repos.search(query.criteria).should == [participant_2]
     end
@@ -51,12 +51,12 @@ describe B56Scheduler::EventRepository do
       repos.notify(participant_1, event_yesterday, yesterday)
     end
     it "finds the events from yesterday" do
-      query = B56Scheduler::Query.new
+      query = Director::Query.new
       query.includes_event(event_yesterday, :before => now)
       repos.search(query.criteria).should == [participant_1]
     end
     it "skips the event when asked for 2 days ago" do
-      query = B56Scheduler::Query.new
+      query = Director::Query.new
       query.includes_event(event_yesterday, :before => two_days_ago)
       repos.search(query.criteria).should be_empty
     end

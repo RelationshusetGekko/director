@@ -1,7 +1,7 @@
-require 'b56_scheduler'
+require 'director'
 
-describe B56Scheduler::Schedule do
-  subject { B56Scheduler::Schedule.new(B56Scheduler::EventRepository.new) }
+describe Director::Schedule do
+  subject { Director::Schedule.new(Director::EventRepository.new) }
   let(:some_event) { 'some_event' }
   let(:some_other_event) { 'some_other_event' }
   context 'with one trigger' do

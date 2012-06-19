@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/b56_scheduler/version', __FILE__)
+require File.expand_path('../lib/director/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Jacob Atzen"]
@@ -11,10 +11,13 @@ Gem::Specification.new do |gem|
   gem.files         = `git ls-files`.split($\).reject{|f| f.match(/\Aschedule_demo/) }
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.name          = "b56_scheduler"
+  gem.name          = "director"
   gem.require_paths = ["lib"]
-  gem.version       = B56Scheduler::VERSION
+  gem.version       = Director::VERSION
+
   gem.add_runtime_dependency 'activesupport'
+
+  gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec', "~> 2.8.0"
   gem.add_development_dependency 'guard-rspec'
   gem.add_development_dependency 'growl'

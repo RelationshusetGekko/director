@@ -1,4 +1,4 @@
-module B56Scheduler
+module Director
   class Query
     attr_reader :criteria
     def initialize

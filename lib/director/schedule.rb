@@ -1,4 +1,4 @@
-module B56Scheduler
+module Director
   class Schedule
     def initialize(event_repository)
       @event_repository = event_repository

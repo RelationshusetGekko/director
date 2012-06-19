@@ -1,6 +1,6 @@
 require 'active_support/core_ext/object'
 
-module B56Scheduler
+module Director
   class Trigger
     attr_reader :action
     def initialize(name, opts)

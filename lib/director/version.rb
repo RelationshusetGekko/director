@@ -1,3 +1,3 @@
-module B56Scheduler
+module Director
   VERSION = "0.0.1"
 end

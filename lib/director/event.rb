@@ -1,4 +1,4 @@
-module B56Scheduler
+module Director
   class Event
     attr_accessor :name, :created_at
   end

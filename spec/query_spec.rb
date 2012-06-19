@@ -1,7 +1,7 @@
-require 'b56_scheduler/query'
+require 'director/query'
 
-describe B56Scheduler::Query do
-  subject { B56Scheduler::Query.new }
+describe Director::Query do
+  subject { Director::Query.new }
   before(:each) do
     subject.includes_event('event1')
     subject.includes_event('event2')

@@ -1,6 +1,6 @@
-require 'b56_scheduler/config_loader'
+require 'director/config_loader'
 
-describe B56Scheduler::ConfigLoader do
+describe Director::ConfigLoader do
   let(:schedule) { stub('Schedule') }
 
   it "loads a simple config" do
@@ -11,7 +11,7 @@ describe B56Scheduler::ConfigLoader do
         'action' => 'send_invite'
       }
     )
-    B56Scheduler::ConfigLoader.load_schedule(schedule, 'spec/fixtures/simple_config.yaml')
+    Director::ConfigLoader.load_schedule(schedule, 'spec/fixtures/simple_config.yaml')
   end
 
   context "with a timed config" do
@@ -26,7 +26,7 @@ describe B56Scheduler::ConfigLoader do
           'offset' => 3600
         }
       )
-      B56Scheduler::ConfigLoader.load_schedule(schedule, 'spec/fixtures/timed_config.yaml')
+      Director::ConfigLoader.load_schedule(schedule, 'spec/fixtures/timed_config.yaml')
     end
 
     it "loads the reminder" do
@@ -38,7 +38,7 @@ describe B56Scheduler::ConfigLoader do
           'offset' => 2 * 24 * 60 * 60
         }
       )
-      B56Scheduler::ConfigLoader.load_schedule(schedule, 'spec/fixtures/timed_config.yaml')
+      Director::ConfigLoader.load_schedule(schedule, 'spec/fixtures/timed_config.yaml')
     end
 
     it "loads the final" do
@@ -50,7 +50,7 @@ describe B56Scheduler::ConfigLoader do
           'offset' => 2 * 30 * 24 * 60 * 60
         }
       )
-      B56Scheduler::ConfigLoader.load_schedule(schedule, 'spec/fixtures/timed_config.yaml')
+      Director::ConfigLoader.load_schedule(schedule, 'spec/fixtures/timed_config.yaml')
     end
   end
 
